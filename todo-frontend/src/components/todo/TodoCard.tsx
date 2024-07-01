@@ -1,14 +1,21 @@
+import { useAppDispatch } from "@/redux/hooks";
 import { Button } from "../ui/button";
-
-const TodoCard = () => {
+import { removeTodo } from "@/redux/features/todoSlice";
+type TTodoCardProps = {
+  id: string;
+  title: string;
+  description: string;
+};
+const TodoCard = ({ id, title, description }: TTodoCardProps) => {
+  const dispatch = useAppDispatch();
   return (
     <div className="bg-white rounded-md flex justify-between items-center p-3 border">
       <input type="checkbox" name="" id="" />
-      <p className="font-semibold">Todo Title</p>
+      <p className="font-semibold">{title}</p>
       {/* <p>Time</p> */}
-      <p>Description</p>
+      <p>{description}</p>
       <div className="space-x-5 text-white">
-        <Button className="bg-red-500">
+        <Button onClick={() => dispatch(removeTodo(id))} className="bg-red-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

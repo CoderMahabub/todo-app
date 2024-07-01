@@ -21,11 +21,14 @@ const AddTodoModal = () => {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log({ task, description });
+    const randomString = Math.random().toString(36).substring(2, 7);
+
     const taskDetails = {
+      id: randomString,
       title: task,
       description: description,
     };
+    // console.log(taskDetails);
     dispatch(addTodo(taskDetails));
   };
   return (
@@ -66,7 +69,13 @@ const AddTodoModal = () => {
               />
             </div>
             <div className="flex justify-end">
-              <Button type="submit">Save changes</Button>
+              <Button
+                className="bg-gray-950 text-white cursor-pointer"
+                variant="secondary"
+                type="submit"
+              >
+                Save changes
+              </Button>
             </div>
           </div>
         </form>
