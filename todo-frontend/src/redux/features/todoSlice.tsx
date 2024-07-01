@@ -1,11 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit";
-const initialState = {
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+
+type TTodo = {
+  title: string;
+  description: string;
+  isCompleted?: boolean;
+};
+
+type TInitialState = {
+  todos: TTodo[];
+};
+const initialState: TInitialState = {
   todos: [],
 };
-const tododSlice = createSlice({
+
+const todoSlice = createSlice({
   name: "todo",
   initialState,
-  reducers: {},
+  reducers: {
+    addTodo: (state, action: PayloadAction<TTodo>) => {
+      state.todos.push({ ...action.payload, isCompleted: false });
+    },
+  },
 });
-
-export default tododSlice.reducer;
+export const { addTodo } = todoSlice.actions;
+export default todoSlice.reducer;
