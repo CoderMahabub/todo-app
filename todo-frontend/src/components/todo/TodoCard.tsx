@@ -25,7 +25,7 @@ const TodoCard = ({ id, title, description, isCompleted }: TTodoCardProps) => {
       {/* <p>Time</p> */}
       <div>
         {isCompleted ? (
-          <p className="text-green-500">Done</p>
+          <p className="text-green-500">Completed</p>
         ) : (
           <p className="text-red-500">Pending</p>
         )}
