@@ -17,6 +17,7 @@ import { Textarea } from "../ui/textarea";
 const AddTodoModal = () => {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
+  const [priority, setPriority] = useState("");
   const dispatch = useAppDispatch();
 
   const onSubmit = (e: FormEvent) => {
@@ -27,8 +28,9 @@ const AddTodoModal = () => {
       id: randomString,
       title: task,
       description: description,
+      priority: priority,
     };
-    // console.log(taskDetails);
+    console.log(taskDetails);
     dispatch(addTodo(taskDetails));
   };
   return (
@@ -65,6 +67,16 @@ const AddTodoModal = () => {
               <Textarea
                 onBlur={(e) => setDescription(e.target.value)}
                 id="description"
+                className="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="priority" className="text-right">
+                Priority
+              </Label>
+              <Input
+                onBlur={(e) => setPriority(e.target.value)}
+                id="priority"
                 className="col-span-3"
               />
             </div>
