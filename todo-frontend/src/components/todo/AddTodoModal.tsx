@@ -4,6 +4,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -11,9 +12,17 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 // import { useAppDispatch } from "@/redux/hooks";
-import { addTodo } from "@/redux/features/todoSlice";
 import { Textarea } from "../ui/textarea";
 import { useAddTodosMutation } from "@/redux/api/api";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 const AddTodoModal = () => {
   const [task, setTask] = useState("");
@@ -34,10 +43,11 @@ const AddTodoModal = () => {
 
     const taskDetails = {
       title: task,
+      isCompleted: false,
       description: description,
       priority: priority,
     };
-    console.log(taskDetails);
+    console.log("inside modal", taskDetails);
 
     //! for local state management
     // dispatch(addTodo(taskDetails));
@@ -81,17 +91,29 @@ const AddTodoModal = () => {
                 className="col-span-3"
               />
             </div>
+
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="priority" className="text-right">
+              <Label htmlFor="description" className="text-right">
                 Priority
               </Label>
-              <Input
-                onBlur={(e) => setPriority(e.target.value)}
-                id="priority"
-                className="col-span-3"
-              />
+              <Select onValueChange={(value) => setPriority(value)}>
+                <SelectTrigger className="col-span-3">
+                  <SelectValue placeholder="Select a Priority" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup className="bg-white">
+                    <SelectLabel>Priority</SelectLabel>
+                    <SelectItem value="high">Hight</SelectItem>
+                    <SelectItem value="medium">Medium</SelectItem>
+                    <SelectItem value="low">Low</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
-            <div className="flex justify-end">
+          </div>
+
+          <div className="flex justify-end">
+            <DialogFooter>
               <Button
                 className="bg-gray-950 text-white cursor-pointer"
                 variant="secondary"
@@ -99,7 +121,7 @@ const AddTodoModal = () => {
               >
                 Save changes
               </Button>
-            </div>
+            </DialogFooter>
           </div>
         </form>
       </DialogContent>

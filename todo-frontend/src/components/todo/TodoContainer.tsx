@@ -9,7 +9,9 @@ const TodoContainer = () => {
   // const { todos } = useAppSelector((state) => state.todos);
 
   //from server
-  const { data: todos, isLoading } = useGetTodosQuery(undefined);
+  const { data: todos, isLoading } = useGetTodosQuery(undefined, {
+    pollingInterval: 30000,
+  });
   console.log(todos);
 
   if (isLoading) {
@@ -27,7 +29,7 @@ const TodoContainer = () => {
         </div> */}
         <div className="bg-white p-5 w-full h-full rounded-lg space-y-3">
           {todos?.data?.map((item) => (
-            <TodoCard {...item} key={item.id}></TodoCard>
+            <TodoCard {...item} key={item?._id}></TodoCard>
           ))}
         </div>
       </div>
